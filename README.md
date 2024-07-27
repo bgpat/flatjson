@@ -1,5 +1,7 @@
 # flatjson
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/bgpat/flatjson.svg)](https://pkg.go.dev/github.com/bgpat/flatjson)
+
 `flatjson` is a Go package that provides utilities for flattening nested JSON structures into a sequence of path-value pairs.
 This makes it easier to compare differences between JSON objects, which is useful for various purposes such as data synchronization, version control, and data analysis.
 
