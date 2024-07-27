@@ -151,7 +151,6 @@ func ExampleFlatten() {
 	// ["d"] = ["foo","bar"]
 	// ["d",0] = "foo"
 	// ["d",1] = "bar"
-
 }
 
 func ExampleFlatJSON_Get() {
