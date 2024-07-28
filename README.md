@@ -13,9 +13,10 @@ go install github.com/bgpat/flatjson/cmd/flatjson
 
 ## Example
 
-input:
+### Flatten
 
-```json
+```console
+$ cat << EOF > input.json
 {
   "a": true,
   "b": {
@@ -26,11 +27,8 @@ input:
     "bar"
   ]
 }
-```
-
-output:
-
-```json
+EOF
+$ flatjson < input.json
 [
   {
     "path": [],
@@ -59,6 +57,41 @@ output:
   {
     "path": ["d", 1],
     "value": "bar"
+  }
+]
+```
+
+### Diff
+
+```console
+$ jq 'del(.a) | .d[1] = "buzz" | .e = null' input.json | flatjson -diff input.json -
+[
+  {
+    "type": "replace",
+    "path": [],
+    "value": {"b": {"c": 2}, "d": ["foo", "buzz"], "e": null},
+    "old_value": {"a": true, "b": {"c": 2}, "d": ["foo", "bar"]}
+  },
+  {
+    "type": "remove",
+    "path": ["a"]
+  },
+  {
+    "type": "replace",
+    "path": ["d"],
+    "value": ["foo", "buzz"],
+    "old_value": ["foo", "bar"]
+  },
+  {
+    "type": "replace",
+    "path": ["d", 1],
+    "value": "buzz",
+    "old_value": "bar"
+  },
+  {
+    "type": "add",
+    "path": ["e"],
+    "value": null
   }
 ]
 ```
